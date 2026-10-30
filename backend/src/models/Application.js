@@ -2,14 +2,20 @@ const mongoose = require("mongoose");
 
 const applicationSchema = new mongoose.Schema(
   {
+    // Core info
     company: {
       type: String,
-      required: [true, "Company is required"],
+      required: [true, "Company or employer is required"],
       trim: true,
     },
-    position: {
+    jobTitle: {
       type: String,
-      required: [true, "Position is required"],
+      required: [true, "Job title is required"],
+      trim: true,
+    },
+    platform: {
+      type: String,
+      required: [true, "Platform is required"],
       trim: true,
     },
     status: {
@@ -24,34 +30,36 @@ const applicationSchema = new mongoose.Schema(
       ],
       default: "applied",
     },
+
+    // Dates
     dateApplied: {
       type: Date,
-      default: Date.now,
     },
-    jobLink: {
+
+    // Job details
+    workType: {
       type: String,
-      trim: true,
+      enum: ["onsite", "hybrid", "remote"],
     },
     location: {
       type: String,
       trim: true,
     },
-    workType: {
-      type: String,
-      enum: ["onsite", "hybrid", "remote"],
-    },
     salaryRange: {
       type: String,
       trim: true,
     },
-    source: {
+    jobLink: {
       type: String,
       trim: true,
     },
-    contactPerson: {
+
+    // Contact
+    contact: {
       type: String,
       trim: true,
     },
+
     notes: {
       type: String,
       trim: true,

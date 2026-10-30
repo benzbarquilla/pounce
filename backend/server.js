@@ -12,6 +12,8 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
+app.use("/api/applications", require("./src/routes/applicationRoutes.js"));
+
 // Test route
 app.get("/", (req, res) => {
   res.json({ message: "Pounce API is running" });

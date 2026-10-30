@@ -12,6 +12,7 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
+// Routes
 app.use("/api/applications", require("./src/routes/applicationRoutes.js"));
 
 // Test route
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Pounce API is running" });
 });
 
+// Check database connection
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

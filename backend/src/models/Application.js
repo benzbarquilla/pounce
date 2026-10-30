@@ -25,6 +25,7 @@ const applicationSchema = new mongoose.Schema(
         "applied",
         "interview",
         "offer",
+        "hired",
         "rejected",
         "ghosted",
       ],

@@ -11,7 +11,7 @@ const cleanBody = (body) => {
   return cleaned;
 };
 
-// POST
+// POST /api/applications
 const createApplication = async (req, res) => {
   try {
     const application = await Application.create(cleanBody(req.body));
@@ -19,14 +19,14 @@ const createApplication = async (req, res) => {
   } catch (error) {
     if (error.name === "ValidationError") {
       const messages = Object.values(error.errors).map((e) => e.message);
-      return res.status(400).json({ message: messages.join(",") });
+      return res.status(400).json({ message: messages.join(", ") });
     }
     console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-// GET
+// GET /api/applications
 const getApplications = async (req, res) => {
   try {
     const applications = await Application.find().sort({ createdAt: -1 });
@@ -37,7 +37,7 @@ const getApplications = async (req, res) => {
   }
 };
 
-// GET by id
+// GET by id /api/applications/:id
 const getApplication = async (req, res) => {
   try {
     const { id } = req.params;
@@ -59,4 +59,78 @@ const getApplication = async (req, res) => {
   }
 };
 
-module.exports = { createApplication, getApplications, getApplication };
+// Split body into fields to set and fields to clear
+const splitBody = (body) => {
+  const set = {};
+  const unset = {};
+  for (const [key, value] of Object.entries(body)) {
+    if (typeof value === "string" && value.trim() === "") {
+      unset[key] = "";
+    } else {
+      set[key] = value;
+    }
+  }
+  return { set, unset };
+};
+
+// PUT /api/applications/:id
+const updateApplication = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid application id" });
+    }
+
+    const { set, unset } = splitBody(req.body);
+
+    const application = await Application.findByIdAndUpdate(
+      id,
+      { $set: set, $unset: unset },
+      { new: true, runValidators: true },
+    );
+
+    if (!application) {
+      return res.status(404).json({ message: "Application not found" });
+    }
+
+    res.json(application);
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      const messages = Object.values(error.errors).map((e) => e.message);
+      return res.status(400).json({ message: messages.join(", ") });
+    }
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// DELETE /api/applications/:id
+const deleteApplication = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid application id" });
+    }
+
+    const application = await Application.findByIdAndDelete(id);
+
+    if (!application) {
+      return res.status(404).json({ message: "Application not found" });
+    }
+
+    res.json({ message: "Application deleted", id });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+module.exports = {
+  createApplication,
+  getApplications,
+  getApplication,
+  updateApplication,
+  deleteApplication,
+};

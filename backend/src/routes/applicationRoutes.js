@@ -8,7 +8,7 @@ const {
   deleteApplication,
 } = require("../controllers/applicationController");
 
-// Application routes
+// Base path: /api/applications
 router.route("/").get(getApplications).post(createApplication);
 router
   .route("/:id")

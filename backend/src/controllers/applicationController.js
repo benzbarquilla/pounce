@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Application = require("../models/Application");
+const Application = require("../models/Application.js");
 
 // Drop blank fields so empty form inputs ("") are never saved
 const cleanBody = (body) => {

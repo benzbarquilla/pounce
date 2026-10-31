@@ -7,6 +7,10 @@ const {
   updateApplication,
   deleteApplication,
 } = require("../controllers/applicationController");
+const { protect } = require("../middleware/auth");
+
+// All application routes require a logged-in user
+router.use(protect);
 
 // Base path: /api/applications
 router.route("/").get(getApplications).post(createApplication);

@@ -5,6 +5,7 @@ const Application = require("../models/Application.js");
 const cleanBody = (body) => {
   const cleaned = {};
   for (const [key, value] of Object.entries(body)) {
+    if (key === "user") continue;
     if (typeof value === "string" && value.trim() === "") continue;
     cleaned[key] = value;
   }
@@ -14,7 +15,10 @@ const cleanBody = (body) => {
 // POST /api/applications
 const createApplication = async (req, res) => {
   try {
-    const application = await Application.create(cleanBody(req.body));
+    const application = await Application.create({
+      ...cleanBody(req.body),
+      user: req.user._id,
+    });
     res.status(201).json(application);
   } catch (error) {
     if (error.name === "ValidationError") {
@@ -29,7 +33,9 @@ const createApplication = async (req, res) => {
 // GET /api/applications
 const getApplications = async (req, res) => {
   try {
-    const applications = await Application.find().sort({ createdAt: -1 });
+    const applications = await Application.find({ user: req.user._id }).sort({
+      createdAt: -1,
+    });
     res.json(applications);
   } catch (error) {
     console.error(error);
@@ -46,7 +52,10 @@ const getApplication = async (req, res) => {
       return res.status(400).json({ message: "Invalid Application id" });
     }
 
-    const application = await Application.findById(id);
+    const application = await Application.findOne({
+      _id: id,
+      user: req.user._id,
+    });
 
     if (!application) {
       return res.status(404).json({ message: "Application not found" });
@@ -64,6 +73,7 @@ const splitBody = (body) => {
   const set = {};
   const unset = {};
   for (const [key, value] of Object.entries(body)) {
+    if (key === "user") continue;
     if (typeof value === "string" && value.trim() === "") {
       unset[key] = "";
     } else {
@@ -84,8 +94,8 @@ const updateApplication = async (req, res) => {
 
     const { set, unset } = splitBody(req.body);
 
-    const application = await Application.findByIdAndUpdate(
-      id,
+    const application = await Application.findOneAndUpdate(
+      { _id: id, user: req.user._id },
       { $set: set, $unset: unset },
       { new: true, runValidators: true },
     );
@@ -114,7 +124,10 @@ const deleteApplication = async (req, res) => {
       return res.status(400).json({ message: "Invalid application id" });
     }
 
-    const application = await Application.findByIdAndDelete(id);
+    const application = await Application.findOneAndDelete({
+      _id: id,
+      user: req.user._id,
+    });
 
     if (!application) {
       return res.status(404).json({ message: "Application not found" });

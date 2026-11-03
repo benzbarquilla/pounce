@@ -185,7 +185,7 @@ Content-Type: application/json
 
 ### Error responses
 
-Errors return JSON with a message and a matching status code:
+Auth and Application endpoints return JSON with a message and a matching status code:
 
 | Code | Meaning |
 |---|---|

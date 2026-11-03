@@ -140,10 +140,36 @@ const deleteApplication = async (req, res) => {
   }
 };
 
+// GET /api/applications/stats
+const getStats = async (req, res) => {
+  try {
+    const results = await Application.aggregate([
+      { $match: { user: req.user._id } },
+      { $group: { _id: "$status", count: { $sum: 1 } } },
+    ]);
+
+    // Start every status at 0 so the response always has the same shape
+    const statuses = Application.schema.path("status").enumValues;
+    const byStatus = Object.fromEntries(statuses.map((s) => [s, 0]));
+
+    let total = 0;
+    for (const { _id, count } of results) {
+      byStatus[_id] = count;
+      total += count;
+    }
+
+    res.json({ total, byStatus });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   createApplication,
   getApplications,
   getApplication,
   updateApplication,
   deleteApplication,
+  getStats,
 };

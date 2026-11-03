@@ -6,6 +6,7 @@ const {
   getApplication,
   updateApplication,
   deleteApplication,
+  getStats,
 } = require("../controllers/applicationController");
 const { protect } = require("../middleware/auth");
 
@@ -14,6 +15,7 @@ router.use(protect);
 
 // Base path: /api/applications
 router.route("/").get(getApplications).post(createApplication);
+router.get("/stats", getStats);
 router
   .route("/:id")
   .get(getApplication)

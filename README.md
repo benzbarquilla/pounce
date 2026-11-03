@@ -1,4 +1,4 @@
-# 🐱 Pounce
+# Pounce 🐱 
 
 **Pounce on your next job.** A job application tracker built with the MERN stack, with a cat mascot that reacts to how your job hunt is going.
 

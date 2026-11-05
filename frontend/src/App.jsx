@@ -1,28 +1,18 @@
-import { useEffect, useState } from "react";
-import api from "./services/api";
+import Login from "./pages/Login";
+import { Navigate, Route, Routes } from "react-router-dom";
+import Register from "./pages/Register";
+import NotFound from "./pages/NotFound";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
-  const [status, setStatus] = useState("Checking API...");
-
-  useEffect(() => {
-    api
-      .get("/applications")
-      .then((res) => setStatus(`API responded with status ${res.status}`))
-      .catch((err) =>
-        setStatus(
-          err.response
-            ? `API responded with status ${err.response.status}`
-            : "Could not reach the API",
-        ),
-      );
-  }, []);
-
   return (
-    <>
-      <div className="min-h-screen bg-violet-50 p-8">
-        <h1 className="text-3xl font-bold text-violet-700">{status}</h1>
-      </div>{" "}
-    </>
+    <Routes>
+      <Route path="/" element={<Navigate to="/dashboard" replace />}></Route>
+      <Route path="/login" element={<Login />}></Route>
+      <Route path="/register" element={<Register />}></Route>
+      <Route path="/dashboard" element={<Dashboard />}></Route>
+      <Route path="*" element={<NotFound />}></Route>
+    </Routes>
   );
 }
 

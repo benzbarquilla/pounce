@@ -1,4 +1,4 @@
-# Pounce 🐱 
+# Pounce 🐱
 
 **Pounce on your next job.** A job application tracker built with the MERN stack, with a cat mascot that reacts to how your job hunt is going.
 
@@ -16,6 +16,7 @@ I built Pounce to replace the Google Sheet I was using to track my own applicati
 ## Features
 
 **Done**
+
 - Register and log in with JWT authentication
 - Passwords hashed with bcrypt
 - Create, read, update, and delete job applications
@@ -25,6 +26,7 @@ I built Pounce to replace the Google Sheet I was using to track my own applicati
 - Server-side validation with clear error messages
 
 **In progress**
+
 - React frontend with a dashboard, application table, and add/edit form
 - Search and filter by status
 - Cat mascot that changes mood based on your pipeline (excited after an interview, sleepy when you haven't applied in a while)
@@ -34,13 +36,13 @@ I built Pounce to replace the Google Sheet I was using to track my own applicati
 
 ## Tech Stack
 
-| Layer | Tools |
-|---|---|
-| Frontend | React _(in progress)_ |
-| Backend | Node.js, Express |
-| Database | MongoDB Atlas, Mongoose |
-| Auth | JSON Web Tokens (`jsonwebtoken`), `bcryptjs` |
-| Other | `cors`, `dotenv`, `nodemon` |
+| Layer    | Tools                                        |
+| -------- | -------------------------------------------- |
+| Frontend | React _(in progress)_                        |
+| Backend  | Node.js, Express                             |
+| Database | MongoDB Atlas, Mongoose                      |
+| Auth     | JSON Web Tokens (`jsonwebtoken`), `bcryptjs` |
+| Other    | `cors`, `dotenv`, `nodemon`                  |
 
 ---
 
@@ -65,7 +67,8 @@ pounce/
 ## Getting Started
 
 ### Prerequisites
-- Node.js 18 or newer
+
+- Node.js 20.19 or newer (22 LTS recommended)
 - A free [MongoDB Atlas](https://www.mongodb.com/atlas) cluster (or a local MongoDB)
 
 ### Run the backend
@@ -107,10 +110,10 @@ Base URL: `/api`
 
 ### Auth
 
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/auth/register` | Create an account. Body: `name`, `email`, `password`. |
-| POST | `/auth/login` | Log in. Body: `email`, `password`. Returns a token. |
+| Method | Endpoint         | Description                                           |
+| ------ | ---------------- | ----------------------------------------------------- |
+| POST   | `/auth/register` | Create an account. Body: `name`, `email`, `password`. |
+| POST   | `/auth/login`    | Log in. Body: `email`, `password`. Returns a token.   |
 
 Both return:
 
@@ -125,14 +128,14 @@ Both return:
 
 All application routes require the header `Authorization: Bearer <token>`.
 
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/applications` | List your applications, newest first |
-| POST | `/applications` | Create an application |
-| GET | `/applications/stats` | Total count and count per status |
-| GET | `/applications/:id` | Get one application |
-| PATCH | `/applications/:id` | Update only the fields you send |
-| DELETE | `/applications/:id` | Delete an application |
+| Method | Endpoint              | Description                          |
+| ------ | --------------------- | ------------------------------------ |
+| GET    | `/applications`       | List your applications, newest first |
+| POST   | `/applications`       | Create an application                |
+| GET    | `/applications/stats` | Total count and count per status     |
+| GET    | `/applications/:id`   | Get one application                  |
+| PATCH  | `/applications/:id`   | Update only the fields you send      |
+| DELETE | `/applications/:id`   | Delete an application                |
 
 **Example: create an application**
 
@@ -169,30 +172,30 @@ Content-Type: application/json
 
 ### Application fields
 
-| Field | Type | Notes |
-|---|---|---|
-| `company` | String | Required. Company or employer name |
-| `jobTitle` | String | Required |
-| `platform` | String | Required. Where you found the job (LinkedIn, OnlineJobs.ph, email, referral...) |
-| `status` | String | One of the statuses above. Defaults to `applied` |
-| `dateApplied` | Date | Optional |
-| `workType` | String | `onsite`, `hybrid`, or `remote` |
-| `location` | String | Optional |
-| `salaryRange` | String | Optional, free text |
-| `jobLink` | String | Optional |
-| `contact` | String | Optional. Recruiter name, email, or number |
-| `notes` | String | Optional |
+| Field         | Type   | Notes                                                                           |
+| ------------- | ------ | ------------------------------------------------------------------------------- |
+| `company`     | String | Required. Company or employer name                                              |
+| `jobTitle`    | String | Required                                                                        |
+| `platform`    | String | Required. Where you found the job (LinkedIn, OnlineJobs.ph, email, referral...) |
+| `status`      | String | One of the statuses above. Defaults to `applied`                                |
+| `dateApplied` | Date   | Optional                                                                        |
+| `workType`    | String | `onsite`, `hybrid`, or `remote`                                                 |
+| `location`    | String | Optional                                                                        |
+| `salaryRange` | String | Optional, free text                                                             |
+| `jobLink`     | String | Optional                                                                        |
+| `contact`     | String | Optional. Recruiter name, email, or number                                      |
+| `notes`       | String | Optional                                                                        |
 
 ### Error responses
 
 Auth and Application endpoints return JSON with a message and a matching status code:
 
-| Code | Meaning |
-|---|---|
-| 400 | Validation failed, invalid id, or duplicate email |
-| 401 | Missing, invalid, or expired token, or wrong login credentials |
-| 404 | Application not found (including applications that belong to someone else) |
-| 500 | Unexpected server error |
+| Code | Meaning                                                                    |
+| ---- | -------------------------------------------------------------------------- |
+| 400  | Validation failed, invalid id, or duplicate email                          |
+| 401  | Missing, invalid, or expired token, or wrong login credentials             |
+| 404  | Application not found (including applications that belong to someone else) |
+| 500  | Unexpected server error                                                    |
 
 ---
 

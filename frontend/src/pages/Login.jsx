@@ -5,10 +5,12 @@ import Button from "../components/Button";
 const Login = () => {
   return (
     <div className="min-h-screen flex p-8">
-      <div className="flex-1 flex flex-col gap-25">
+      <div className="flex-1 flex flex-col gap-20">
         {/* Logo */}
-        <div className="bg-orange-400 flex">
-          <div></div>
+        <div className="flex items-center gap-2">
+          <div className="bg-brand-light rounded-lg p-1">
+            <img src="/logo.svg" alt="Pounce Logo" className="h-12 w-12" />
+          </div>
           <h1 className="text-xl font-bold">Pounce</h1>
         </div>
 
@@ -20,7 +22,7 @@ const Login = () => {
               Sign in to pick up where you left off.
             </p>
 
-            <div className="flex flex-col mt-5">
+            <div className="flex flex-col mt-8">
               <InputField
                 legend="Name"
                 icon={User}

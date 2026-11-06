@@ -9,6 +9,8 @@ I built Pounce to replace the Google Sheet I was using to track my own applicati
 <!-- Add a screenshot or GIF here once the frontend is ready -->
 <!-- ![Pounce dashboard](./docs/screenshot.png) -->
 
+![App Preview](docs/images/login-page.png)
+
 **Live demo:** _coming soon_
 
 ---

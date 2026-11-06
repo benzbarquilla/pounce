@@ -1,15 +1,18 @@
 // import { Link } from "react-router-dom";
-import { User, Mail, Lock } from "lucide-react";
+import { Mail, Lock } from "lucide-react";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
+import { Link } from "react-router-dom";
+import Mascot from "../assets/mascot/default.svg";
+import PawPattern from "../assets/mascot/paw-marks.svg";
 const Login = () => {
   return (
     <div className="min-h-screen flex p-8">
       <div className="flex-1 flex flex-col gap-20">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <div className="bg-brand-light rounded-lg p-1">
-            <img src="/logo.svg" alt="Pounce Logo" className="h-12 w-12" />
+          <div className="bg-brand-light rounded-lg p-2">
+            <img src="/logo.svg" alt="Pounce Logo" className="h-8 w-8" />
           </div>
           <h1 className="text-xl font-bold">Pounce</h1>
         </div>
@@ -17,20 +20,12 @@ const Login = () => {
         {/* Form Container */}
         <div className="flex justify-center">
           <div className="basis-sm">
-            <h1 className="text-3xl text-heading font-bold">Welcome Back</h1>
+            <h1 className="text-3xl text-heading font-bold">Welcome Back!</h1>
             <p className="text-base text-body mt-3 font-normal">
               Sign in to pick up where you left off.
             </p>
 
-            <div className="flex flex-col mt-8">
-              <InputField
-                legend="Name"
-                icon={User}
-                name="name"
-                placeholder="Full name"
-                minLength={2}
-                hint="Must be 3 to 30 characters"
-              />
+            <form className="flex flex-col mt-8">
               <InputField
                 legend="Email"
                 icon={Mail}
@@ -49,19 +44,51 @@ const Login = () => {
                 required
                 minLength={6}
                 placeholder="Password"
-                hint="Must be at least 6 characters"
+                hint="Must be at least 8 characters"
+                showForgotPassword
               />
 
-              <Button type="submit" className="mt-3">
-                Login
+              <Button
+                type="submit"
+                className="mt-3 rounded-lg text-heading bg-brand border-none shadow-none"
+              >
+                Sign in
               </Button>
+            </form>
+            <div className="flex justify-center gap-1 mt-25">
+              <p className="text-body">Don't have an account?</p>
+              <Link to="/register" className="text-header underline">
+                Sign up
+              </Link>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="bg-green-500 flex-1">
-        <h1>Image Side</h1>
+      <div className="bg-brand-light flex-1 relative overflow-hidden rounded-lg hidden md:block">
+        <div className="absolute inset-0 opacity-20">
+          <img
+            src={PawPattern}
+            alt="Paw Marks"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="flex justify-center">
+          <img
+            src={Mascot}
+            alt="Pounce Mascot"
+            className="w-80 lg:w-[600px] h-auto object-contain"
+          />
+        </div>
+
+        <div className="mt-auto">
+          <h1 className="font-bold text-3xl ml-5 text-brand">
+            Pounce on your next job.{" "}
+          </h1>
+          <p className="text-base ml-5">
+            Your job hunt, organized in one place.
+          </p>
+        </div>
       </div>
     </div>
   );

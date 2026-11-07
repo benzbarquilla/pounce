@@ -18,16 +18,16 @@ const NotFound = () => {
             <img
               src={Mascot}
               alt="Pounce Mascot"
-              className="w-90 h-auto  object-contain"
+              className="w-100 h-auto  object-contain"
             />
           </div>
           <div className="flex flex-col">
-            <h1 className="text-center text-5xl  text-heading font-bold uppercase">
+            <h1 className="text-center text-5xl  text-heading font-bold">
               Page Not Found
             </h1>
             <p className="text-center text-xl text-body mt-3 font-normal">
               The page you are looking for cannot be found.{" "}
-              <Link to="/" className="text-header underline text-brand">
+              <Link to="/" className="underline text-brand">
                 Go back home
               </Link>
             </p>

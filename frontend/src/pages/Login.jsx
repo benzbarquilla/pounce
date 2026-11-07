@@ -27,7 +27,8 @@ const Login = () => {
 
             <form className="flex flex-col mt-8">
               <InputField
-                legend="Email"
+                id="email"
+                label="Email"
                 icon={Mail}
                 type="email"
                 name="email"
@@ -37,15 +38,23 @@ const Login = () => {
               />
 
               <InputField
-                legend="Password"
+                id="password"
+                label="Password"
+                labelAction={
+                  <Link
+                    to="/forgot-password"
+                    className="text-base text-body pt-0"
+                  >
+                    Forgot Password?
+                  </Link>
+                }
                 icon={Lock}
                 type="password"
                 name="password"
                 required
-                minLength={6}
+                minLength={8}
                 placeholder="Password"
                 hint="Must be at least 8 characters"
-                showForgotPassword
               />
 
               <Button

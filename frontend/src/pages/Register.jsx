@@ -16,7 +16,7 @@ const Register = () => {
 
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [registered, setRegistered] = useState(true);
+  const [registered, setRegistered] = useState(false);
   const passwordsMatch = formData.password === formData.confirmPassword;
 
   const handleChange = (e) => {

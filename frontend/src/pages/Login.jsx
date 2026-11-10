@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Mail, Lock } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
 import api from "../services/api";
@@ -8,6 +9,7 @@ import Mascot from "../assets/mascot/default.svg";
 import PawPattern from "../assets/mascot/paw-marks.svg";
 import Logo from "../components/Logo";
 const Login = () => {
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -28,8 +30,7 @@ const Login = () => {
 
     try {
       const { data } = await api.post("/auth/login", formData);
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
+      login(data.token, data.user);
       navigate("/dashboard");
     } catch (err) {
       setServerError(

@@ -139,22 +139,6 @@ const Login = () => {
             </p>
           </div>
         </div>
-        {/* <div className="flex justify-center">
-          <img
-            src={Mascot}
-            alt="Pounce Mascot"
-            className="w-80 lg:w-[600px] h-auto object-contain"
-          />
-        </div>
-
-        <div>
-          <h1 className="font-bold text-3xl ml-5 text-brand">
-            Pounce on your next job.
-          </h1>
-          <p className="text-base ml-5">
-            Your job hunt, organized in one place.
-          </p>
-        </div> */}
       </div>
     </div>
   );

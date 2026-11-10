@@ -9,4 +9,20 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const hadToken = !!localStorage.getItem("token");
+    const isAuthCall = error.config?.url?.includes("/auth/");
+
+    if (error.response?.status === 401 && hadToken && !isAuthCall) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "/login";
+    }
+
+    return Promise.reject(error);
+  },
+);
+
 export default api;

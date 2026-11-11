@@ -5,6 +5,8 @@ import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import GuestRoute from "./components/GuestRoute";
+import DashboardLayout from "./components/DashboardLayout";
+import Applications from "./pages/Applications";
 
 function App() {
   return (
@@ -15,7 +17,10 @@ function App() {
       </Route>
       <Route path="/" element={<Navigate to="/dashboard" replace />}></Route>
       <Route element={<ProtectedRoute />}>
-        <Route path="/dashboard" element={<Dashboard />}></Route>
+        <Route element={<DashboardLayout />}>
+          <Route path="/dashboard" element={<Dashboard />}></Route>
+          <Route path="/applications" element={<Applications />}></Route>
+        </Route>
       </Route>
       <Route path="*" element={<NotFound />}></Route>
     </Routes>

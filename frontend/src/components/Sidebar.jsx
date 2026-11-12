@@ -13,6 +13,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import Logo from "./Logo";
+import UserAvatar from "./UserAvatar";
 import { useAuth } from "../context/AuthContext";
 
 const navItems = [
@@ -60,16 +61,38 @@ const AppSidebar = () => {
 
       <SidebarFooter>
         {/* PLACEHOLDER: user avatar / dropdown menu */}
-        <p className="px-2 text-sm font-medium bg-red-300 group-data-[collapsible=icon]:hidden">
-          {user?.name}
-        </p>
+        <div className="dropdown dropdown-right dropdown-end hover:bg-brand-light">
+          <div tabIndex={0} role="button" className="flex gap-2 cursor-pointer">
+            <UserAvatar name={user?.name} className="w-10" />
+            <div className="group-data-[collapsible=icon]:hidden">
+              <h1 className="text-base font-semibold">{user?.name}</h1>
+              <p className="text-sm">{user?.email}</p>
+            </div>
+          </div>
+          <ul
+            tabIndex={-1}
+            className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm "
+          >
+            <div className="flex gap-2">
+              <UserAvatar name={user?.name} className="w-7" />
+              <div>
+                <h1 className="text-sm font-semibold">{user?.name}</h1>
+                <p className="text-xs">{user?.email}</p>
+              </div>
+            </div>
+            <div
+              role="button"
+              onClick={logout}
+              className="flex p-1 items-center gap-2 text-sm cursor-pointer hover:bg-brand-light"
+            >
+              <LogOut width={18} />
+              Log out
+            </div>
+          </ul>
+        </div>
+
         <SidebarMenu className={"group-data-[collapsible=icon]:items-center "}>
-          <SidebarMenuItem>
-            <SidebarMenuButton onClick={logout} tooltip="Log out">
-              <LogOut />
-              <span>Log out</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          <SidebarMenuItem></SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>

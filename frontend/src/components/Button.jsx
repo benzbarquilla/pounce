@@ -17,7 +17,7 @@ const Button = ({
   return (
     <button
       type={type}
-      className={`btn ${variants[variant]} ${className} rounded-lg text-heading bg-brand border-none shadow-none hover:text-white hover:bg-brand-hover `}
+      className={`btn ${variants[variant]} ${className} rounded-lg text-heading bg-button border-none shadow-none hover:text-white hover:bg-button-hover `}
       disabled={disabled || loading}
       {...props}
     >

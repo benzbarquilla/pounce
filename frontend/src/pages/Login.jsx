@@ -134,7 +134,7 @@ const Login = () => {
             <h2 className="text-3xl font-bold text-brand">
               Pounce on your next job.
             </h2>
-            <p className="mt-1 text-base">
+            <p className="mt-1 text-base text-surface">
               Your job hunt, organized in one place.
             </p>
           </div>

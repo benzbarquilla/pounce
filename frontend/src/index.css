@@ -232,7 +232,7 @@
 
   /* Sidebar */
   --sidebar: #ffffff;
-  --sidebar-foreground: #f5f5f5;
+  /* --sidebar-foreground: #171717; */
   --sidebar-primary: #fa9c42;
   --sidebar-primary-foreground: #171717;
   --sidebar-muted: #525252;
@@ -297,7 +297,7 @@
 
   /* Sidebar */
   --sidebar: #202020;
-  /* --sidebar-foreground: #f5f5f5; */
+  --sidebar-foreground: #f5f5f5;
   --sidebar-primary: #fa9c42;
   --sidebar-primary-foreground: #171717;
   --sidebar-muted: #a3a3a3;

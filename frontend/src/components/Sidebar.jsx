@@ -33,27 +33,27 @@ const AppSidebar = () => {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
-        <Logo isCollapsed="group-data-[collapsible=icon]:hidden" />
+        <Logo labelClassName="group-data-[collapsible=icon]:hidden" />
       </SidebarHeader>
 
       <SidebarContent>
-        <SidebarGroup>
+        <SidebarGroup className={"pl-0 pr-0"}>
           <SidebarGroupLabel>Menu</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu
-              className={"group-data-[collapsible=icon]:items-center "}
-            >
+            <SidebarMenu className={"gap-0"}>
               {navItems.map((item) => (
                 <SidebarMenuItem key={item.to}>
                   <SidebarMenuButton
                     asChild
                     isActive={pathname === item.to}
                     tooltip={item.title}
-                    className="text-sidebar-muted hover:text-sidebar-foreground hover:bg-sidebar-accent/50 data-[active=true]:bg-sidebar-accent! data-[active=true]:text-sidebar-foreground"
+                    className="relative text-sidebar-muted hover:text-sidebar-foreground hover:bg-sidebar-accent/10 data-active:text-sidebar-foreground before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-sidebar-accent before:opacity-0 before:transition-opacity data-active:before:opacity-100 group-data-[collapsible=icon]:w-full! group-data-[collapsible=icon]:h-11! group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0"
                   >
                     <Link to={item.to} className="flex gap-2 items-center">
-                      <item.icon />
-                      <span>{item.title}</span>
+                      <item.icon strokeWidth={1} />
+                      <span className="group-data-[collapsible=icon]:hidden">
+                        {item.title}
+                      </span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -65,15 +65,14 @@ const AppSidebar = () => {
         {/* PLACEHOLDER: another group, or the mascot card */}
       </SidebarContent>
 
-      <SidebarFooter>
-        {/* PLACEHOLDER: user avatar / dropdown menu */}
-        <div className="dropdown dropdown-right dropdown-end ">
+      <SidebarFooter className={"p-0"}>
+        <div className="dropdown dropdown-right dropdown-end">
           <div
             tabIndex={0}
             role="button"
-            className="flex gap-2 cursor-pointer hover:bg-sidebar-accent p-2 group-data-[collapsible=icon]:p-1 group-data-[collapsible=icon]:hover:bg-transparent rounded-lg text-heading hover:text-sidebar-foreground"
+            className="flex gap-2 group-data-[collapsible=icon]:justify-center relative cursor-pointer hover:bg-sidebar-accent/10 p-2 group-data-[collapsible=icon]:px-0 text-heading hover:text-sidebar-foreground before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-sidebar-accent before:opacity-0 before:transition-opacity hover:before:opacity-100 group-data-[collapsible=icon]:w-full"
           >
-            <UserAvatar name={user?.name} className="w-10 " />
+            <UserAvatar name={user?.name} className="w-10" />
             <div className="group-data-[collapsible=icon]:hidden ">
               <h1 className="text-base font-semibold">{user?.name}</h1>
               <p className="text-xs">{user?.email}</p>
@@ -93,14 +92,14 @@ const AppSidebar = () => {
             <div
               role="button"
               onClick={logout}
-              className="flex p-1 items-center gap-2 text-sm cursor-pointer hover:bg-sidebar-accent rounded-lg text-sidebar-muted hover:text-sidebar-foreground"
+              className=" relative flex p-2 items-center gap-2 text-sm cursor-pointer hover:bg-sidebar-accent/10 text-sidebar-muted hover:text-sidebar-foreground data-active:text-sidebar-foreground  before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-sidebar-accent before:opacity-0 before:transition-opacity hover:before:opacity-100 data-active:before:opacity-100"
             >
               <LogOut width={18} />
               Log out
             </div>
             <div
               role="button"
-              className="flex p-1 items-center gap-2 text-sm cursor-pointer hover:bg-sidebar-accent rounded-lg text-sidebar-muted hover:text-sidebar-foreground data-[active=true]:text-sidebar-foreground"
+              className=" relative flex p-2 items-center gap-2 text-sm cursor-pointer hover:bg-sidebar-accent/10 text-sidebar-muted hover:text-sidebar-foreground data-active:text-sidebar-foreground  before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-sidebar-accent before:opacity-0 before:transition-opacity hover:before:opacity-100 data-active:before:opacity-100"
             >
               <Settings width={18} />
               Settings

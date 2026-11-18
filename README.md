@@ -174,19 +174,21 @@ Content-Type: application/json
 
 ### Application fields
 
-| Field         | Type   | Notes                                                                           |
-| ------------- | ------ | ------------------------------------------------------------------------------- |
-| `company`     | String | Required. Company or employer name                                              |
-| `jobTitle`    | String | Required                                                                        |
-| `platform`    | String | Required. Where you found the job (LinkedIn, OnlineJobs.ph, email, referral...) |
-| `status`      | String | One of the statuses above. Defaults to `applied`                                |
-| `dateApplied` | Date   | Optional                                                                        |
-| `workType`    | String | `onsite`, `hybrid`, or `remote`                                                 |
-| `location`    | String | Optional                                                                        |
-| `salaryRange` | String | Optional, free text                                                             |
-| `jobLink`     | String | Optional                                                                        |
-| `contact`     | String | Optional. Recruiter name, email, or number                                      |
-| `notes`       | String | Optional                                                                        |
+| Field           | Type   | Notes                                                                           |
+| --------------- | ------ | ------------------------------------------------------------------------------- |
+| `company`       | String | Required. Company or employer name                                              |
+| `jobTitle`      | String | Required                                                                        |
+| `platform`      | String | Required. Where you found the job (LinkedIn, OnlineJobs.ph, email, referral...) |
+| `status`        | String | One of the statuses above. Defaults to `applied`                                |
+| `dateApplied`   | Date   |
+| `interviewDate` | Date   |
+| Optional        |
+| `workType`      | String | `onsite`, `hybrid`, or `remote`                                                 |
+| `location`      | String | Optional                                                                        |
+| `salaryRange`   | String | Optional, free text                                                             |
+| `jobLink`       | String | Optional                                                                        |
+| `contact`       | String | Optional. Recruiter name, email, or number                                      |
+| `notes`         | String | Optional                                                                        |
 
 ### Error responses
 

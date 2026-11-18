@@ -42,6 +42,9 @@ const applicationSchema = new mongoose.Schema(
     dateApplied: {
       type: Date,
     },
+    interviewDate: {
+      type: Date,
+    },
 
     // Job details
     workType: {

@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
 import api from "../services/api";
-import Mascot from "../assets/mascot/default.svg";
+import Mascot from "../assets/mascot/pouncing.svg";
 import PawPattern from "../assets/mascot/paw-marks.svg";
 import Logo from "../components/Logo";
 const Login = () => {

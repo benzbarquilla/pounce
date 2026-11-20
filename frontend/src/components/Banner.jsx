@@ -18,11 +18,11 @@ const Banner = ({ title, children, mascot = Mascot, mascotPosition = "" }) => {
   return (
     <section className="relative overflow-hidden flex justify-between p-5 rounded-sm md:min-h-55 bg-linear-to-r from-brand/15 to-[#7266d6]/15 ">
       <div className="max-w-xl md:pb-6">
-        <p className="flex items-center gap-2 ">
+        <p className="flex items-center gap-2">
           {isDaytime() ? (
-            <Sun strokeWidth={2} width={20} />
+            <Sun strokeWidth={2} className="size-5" />
           ) : (
-            <Moon strokeWidth={2} />
+            <Moon strokeWidth={2} className="size-5" />
           )}
           {getFormattedDate()}
         </p>

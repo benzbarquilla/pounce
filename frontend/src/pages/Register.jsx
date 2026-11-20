@@ -149,7 +149,7 @@ const Register = () => {
                   )}
 
                   <Button type="submit" loading={loading} className="mt-3">
-                    {loading ? "Creating account..." : "Sign up"}
+                    {loading ? "Creating account..." : "Create account"}
                   </Button>
                 </form>
                 <div className="flex justify-center gap-1 mt-10">

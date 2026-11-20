@@ -14,7 +14,7 @@ const DashboardLayout = () => {
   return (
     <SidebarProvider style={{ "--sidebar-width-icon": "4rem" }}>
       <Sidebar />
-      <main className="flex min-h-svh flex-1 flex-col">
+      <main className="flex min-h-svh min-w-0 flex-1 flex-col">
         <header className="flex h-14 items-center gap-2 border-b px-4">
           <SidebarTrigger />
           <div className="h-5 w-px bg-border" />

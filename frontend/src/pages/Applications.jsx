@@ -36,7 +36,7 @@ const Applications = () => {
       </Banner>
 
       <section>
-        <div className="flex flex-col-reverse gap-2 md:flex-row justify-between mb-2">
+        <div className="flex flex-col-reverse gap-2  md:flex-row justify-between mb-2">
           <div className="flex flex-wrap md:flex-nowrap gap-1 py-1">
             {statuses.map((status) => {
               const isActive = selectedStatus === status;

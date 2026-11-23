@@ -102,7 +102,7 @@ const Login = () => {
               <Button
                 type="submit"
                 loading={loading}
-                className="rounded-lg text-heading bg-brand border-none shadow-none"
+                className="bg-purple hover:bg-button-hover"
               >
                 {loading ? "Signing in..." : "Sign in"}
               </Button>

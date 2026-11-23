@@ -148,7 +148,11 @@ const Register = () => {
                     </p>
                   )}
 
-                  <Button type="submit" loading={loading} className="mt-3">
+                  <Button
+                    type="submit"
+                    loading={loading}
+                    className="mt-3 bg-purple hover:bg-button-hover"
+                  >
                     {loading ? "Creating account..." : "Create account"}
                   </Button>
                 </form>

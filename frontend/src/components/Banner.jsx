@@ -1,7 +1,7 @@
 import { Sun, Moon } from "lucide-react";
-import Mascot from "../assets/mascot/happy.svg";
+import Mascot from "../components/Mascot";
 
-const Banner = ({ title, children, mascot = Mascot, mascotPosition = "" }) => {
+const Banner = ({ title, children, mascotVariant, mascotPosition }) => {
   const isDaytime = () => {
     const hour = new Date().getHours();
     return hour >= 6 && hour < 18;
@@ -31,10 +31,10 @@ const Banner = ({ title, children, mascot = Mascot, mascotPosition = "" }) => {
         </h2>
         <p className="text-muted-foreground mt-6 ">{children}</p>
       </div>
-      <img
-        src={mascot}
-        alt=""
-        className={`pointer-events-none absolute right-6 ${mascotPosition} h-100 w-auto shrink-0 self-end hidden md:block`}
+      <Mascot
+        mascotPosition={mascotPosition}
+        variant={mascotVariant}
+        className="absolute right-6 h-96 self-end hidden md:block"
       />
     </section>
   );

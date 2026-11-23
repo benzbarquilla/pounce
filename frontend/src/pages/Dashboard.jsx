@@ -1,10 +1,4 @@
-import {
-  Send,
-  Users,
-  CircleX,
-  Ghost,
-  CircleExclamationPoint,
-} from "lucide-react";
+import { Send, Users, CircleX, Ghost, CircleAlert } from "lucide-react";
 import StatCard from "#src/components/StatCard.jsx";
 import { useEffect, useState } from "react";
 import { useAuth } from "#src/context/AuthContext.js";
@@ -58,16 +52,16 @@ const Dashboard = () => {
   const getFirstName = user?.name?.trim().split(" ")[0] ?? "";
 
   return (
-    <main className="space-y-4">
-      <Banner title={`Hi, ${getFirstName}!`} mascotPosition="-bottom-28">
+    <main className="space-y-2">
+      <Banner title={`Hi, ${getFirstName}!`} mascotPosition="-bottom-24">
         You have{" "}
-        <span className="font-medium text-heading">2 upcoming interviews</span>{" "}
+        <span className="font-medium text-heading">20 upcoming interviews</span>{" "}
         this week.
       </Banner>
 
       {error && (
         <div role="alert" className="alert alert-error alert-soft rounded-sm">
-          <CircleExclamationPoint strokeWidth={1.25} />
+          <CircleAlert strokeWidth={1.25} />
           <span>{error}</span>
         </div>
       )}

@@ -59,21 +59,24 @@ const Login = () => {
             <form onSubmit={handleSubmit} className="flex flex-col mt-8 gap-2">
               <InputField
                 id="email"
-                label="Email"
-                icon={Mail}
                 type="email"
+                label="Email"
+                placeholder="you@example.com"
+                icon={Mail}
                 name="email"
                 autoComplete="email"
                 required
-                placeholder="you@example.com"
                 hint="Enter a valid email address"
                 value={formData.email}
                 onChange={handleChange}
+                className="input validator"
               />
 
               <InputField
                 id="password"
+                type="password"
                 label="Password"
+                placeholder="Password"
                 labelAction={
                   <Link
                     to="/forgot-password"
@@ -83,14 +86,13 @@ const Login = () => {
                   </Link>
                 }
                 icon={Lock}
-                type="password"
                 name="password"
                 autoComplete="current-password"
                 required
-                placeholder="Password"
                 hint="Enter your password"
                 value={formData.password}
                 onChange={handleChange}
+                className="input validator"
               />
 
               {serverError && (

@@ -85,7 +85,9 @@
 /* =========================================
    TAILWIND THEME
 ========================================= */
-
+html {
+  scrollbar-gutter: stable;
+}
 @theme {
   /* Typography scale */
   --text-xs: 12px;

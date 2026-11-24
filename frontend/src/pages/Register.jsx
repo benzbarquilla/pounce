@@ -86,60 +86,65 @@ const Register = () => {
                 <form onSubmit={handleSubmit} className="flex flex-col mt-2">
                   <InputField
                     id="name"
+                    type="text"
                     label="Name"
+                    placeholder="Full name"
                     icon={User}
                     name="name"
                     autoComplete="name"
                     required
-                    placeholder="Full name"
                     minLength={3}
                     maxLength={30}
                     hint="Must be 3 to 30 characters"
                     value={formData.name}
                     onChange={handleChange}
+                    className="input validator"
                   />
                   <InputField
                     id="email"
-                    label="Email"
-                    icon={Mail}
                     type="email"
+                    label="Email"
+                    placeholder="you@example.com"
+                    icon={Mail}
                     name="email"
                     autoComplete="email"
                     required
-                    placeholder="you@example.com"
                     hint="Enter a valid email address"
                     value={formData.email}
                     onChange={handleChange}
+                    className="input validator"
                   />
 
                   <InputField
                     id="password"
-                    label="Password"
-                    icon={Lock}
                     type="password"
+                    label="Password"
+                    placeholder="Password"
+                    icon={Lock}
                     name="password"
                     required
                     minLength={8}
-                    placeholder="Password"
                     autoComplete="new-password"
                     hint="Must be at least 8 characters"
                     value={formData.password}
                     onChange={handleChange}
+                    className="input validator"
                   />
 
                   <InputField
                     id="confirm-password"
-                    label="Confirm Password"
-                    icon={Lock}
                     type="password"
+                    label="Confirm Password"
+                    placeholder="Confirm your password"
+                    icon={Lock}
                     name="confirmPassword"
                     required
-                    placeholder="Confirm your password"
                     autoComplete="new-password"
                     hint="Passwords must match"
                     error={passwordsMatch ? "" : "Passwords must match"}
                     value={formData.confirmPassword}
                     onChange={handleChange}
+                    className="input validator"
                   />
 
                   {serverError && (

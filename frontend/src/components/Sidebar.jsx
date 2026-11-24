@@ -91,18 +91,18 @@ const AppSidebar = () => {
             </div>
             <div
               role="button"
+              className=" relative flex p-2 items-center gap-2 text-sm cursor-pointer hover:bg-sidebar-accent/10 text-sidebar-muted hover:text-sidebar-foreground data-active:text-sidebar-foreground  before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-sidebar-accent before:opacity-0 before:transition-opacity hover:before:opacity-100 data-active:before:opacity-100"
+            >
+              <Settings width={18} />
+              Settings
+            </div>
+            <div
+              role="button"
               onClick={logout}
               className=" relative flex p-2 items-center gap-2 text-sm cursor-pointer hover:bg-sidebar-accent/10 text-sidebar-muted hover:text-sidebar-foreground data-active:text-sidebar-foreground  before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-sidebar-accent before:opacity-0 before:transition-opacity hover:before:opacity-100 data-active:before:opacity-100"
             >
               <LogOut width={18} />
               Log out
-            </div>
-            <div
-              role="button"
-              className=" relative flex p-2 items-center gap-2 text-sm cursor-pointer hover:bg-sidebar-accent/10 text-sidebar-muted hover:text-sidebar-foreground data-active:text-sidebar-foreground  before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-sidebar-accent before:opacity-0 before:transition-opacity hover:before:opacity-100 data-active:before:opacity-100"
-            >
-              <Settings width={18} />
-              Settings
             </div>
           </ul>
         </div>

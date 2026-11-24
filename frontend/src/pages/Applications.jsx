@@ -125,7 +125,6 @@ const Applications = () => {
               <Plus strokeWidth={2} className="size-5" />
               <span className="hidden sm:inline">Add application</span>
             </Button>
-            <Button onClick={() => toast.success("bading!")}></Button>
           </div>
         </div>
         {error && <Alert error={error} className="rounded-sm" />}

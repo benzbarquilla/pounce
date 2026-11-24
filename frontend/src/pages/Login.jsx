@@ -8,6 +8,7 @@ import api from "../services/api";
 import Mascot from "../assets/mascot/pouncing.svg";
 import PawPattern from "../assets/mascot/paw-marks.svg";
 import Logo from "../components/Logo";
+import Alert from "#src/components/Alert.jsx";
 const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const Login = () => {
     password: "",
   });
 
-  const [serverError, setServerError] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -25,7 +26,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setServerError("");
+    setError("");
     setLoading(true);
 
     try {
@@ -33,7 +34,7 @@ const Login = () => {
       login(data.token, data.user);
       navigate("/dashboard");
     } catch (err) {
-      setServerError(
+      setError(
         err.response?.data?.message ||
           (err.response
             ? "Login failed. Try again."
@@ -95,16 +96,12 @@ const Login = () => {
                 className="input validator"
               />
 
-              {serverError && (
-                <p role="alert" className="text-sm text-error ">
-                  {serverError}
-                </p>
-              )}
+              {error && <Alert error={error} className="rounded-sm" />}
 
               <Button
                 type="submit"
                 loading={loading}
-                className="bg-purple hover:bg-button-hover"
+                className="bg-purple hover:bg-button-hover border-none"
               >
                 {loading ? "Signing in..." : "Sign in"}
               </Button>

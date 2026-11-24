@@ -22,13 +22,16 @@ const InputField = ({
   return (
     <div>
       <div className="flex items-center justify-between">
-        <label htmlFor={id} className="fieldset-legend pt-0 text-base">
+        <label
+          htmlFor={id}
+          className="fieldset-legend font-normal pt-0 text-sm"
+        >
           {label}
         </label>
         {labelAction}
       </div>
 
-      <label className={`input validator w-full rounded-lg ${className}`}>
+      <label className={`w-full rounded-sm ${className}`}>
         {Icon && <Icon strokeWidth={1.5} size={18} />}
         <input
           id={id}

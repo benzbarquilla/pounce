@@ -1,20 +1,18 @@
 import Banner from "#src/components/Banner.jsx";
 import { useEffect, useState } from "react";
-import { Search, Plus, CircleAlert } from "lucide-react";
+import { Search, Plus } from "lucide-react";
 import Mascot from "../components/Mascot";
 import Button from "#src/components/Button.jsx";
 import api from "#src/services/api.js";
+import { formatDate, formatDateTime } from "../lib/date.js";
+import StatusBadge from "#src/components/StatusBadge.jsx";
+import CompanyAvatar from "../components/CompanyAvatar";
+import ApplicationSheet from "#src/components/ApplicationSheet.jsx";
+import { statuses } from "#src/lib/constants.js";
+import Alert from "#src/components/Alert.jsx";
+import { toast } from "sonner";
 
-const statuses = [
-  "all",
-  "wishlist",
-  "applied",
-  "interview",
-  "offer",
-  "hired",
-  "rejected",
-  "ghosted",
-];
+const filterOptions = ["all", ...statuses];
 
 const Applications = () => {
   const [search, setSearch] = useState("");
@@ -22,6 +20,7 @@ const Applications = () => {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [sheetOpen, setSheetOpen] = useState(false);
 
   useEffect(() => {
     const getApplications = async () => {
@@ -61,6 +60,12 @@ const Applications = () => {
   const noMatches =
     !loading && applications.length > 0 && visibleApplications.length === 0;
 
+  const handleSaved = (newApp) => {
+    setApplications((prev) => [newApp, ...prev]);
+    setSheetOpen(false);
+    toast.success("Application saved!");
+  };
+
   return (
     <main className="space-y-4">
       <Banner
@@ -76,18 +81,18 @@ const Applications = () => {
       <section>
         <div className="flex flex-col-reverse gap-2  md:flex-row justify-between mb-2">
           <div className="flex flex-wrap md:flex-nowrap gap-1 py-1">
-            {statuses.map((status) => {
-              const isActive = selectedStatus === status;
+            {filterOptions.map((option) => {
+              const isActive = selectedStatus === option;
               const count =
-                status === "all"
+                option === "all"
                   ? applications.length
-                  : applications.filter((app) => app.status === status).length;
+                  : applications.filter((app) => app.status === option).length;
 
               return (
                 <button
-                  key={status}
+                  key={option}
                   type="button"
-                  onClick={() => setSelectedStatus(status)}
+                  onClick={() => setSelectedStatus(option)}
                   aria-pressed={isActive}
                   className={`shrink-0 rounded-sm p-1 md:px-2 text-xs capitalize ${
                     isActive
@@ -95,7 +100,7 @@ const Applications = () => {
                       : "bg-card text-muted-foreground hover:text-heading"
                   }`}
                 >
-                  {status} <span className="opacity-70">({count})</span>
+                  {option} <span className="opacity-70">({count})</span>
                 </button>
               );
             })}
@@ -113,25 +118,21 @@ const Applications = () => {
                 aria-label="Search applications"
               />
             </label>
-            <Button>
+            <Button
+              onClick={() => setSheetOpen(true)}
+              className="bg-purple hover:bg-button-hover border-none"
+            >
               <Plus strokeWidth={2} className="size-5" />
               <span className="hidden sm:inline">Add application</span>
             </Button>
+            <Button onClick={() => toast.success("bading!")}></Button>
           </div>
         </div>
-        {error && (
-          <div
-            role="alert"
-            className="alert alert-error alert-soft rounded-sm mb-2"
-          >
-            <CircleAlert strokeWidth={1.25} />
-            <span>{error}</span>
-          </div>
-        )}
+        {error && <Alert error={error} className="rounded-sm" />}
         <div className="overflow-x-auto rounded-sm border border-base-content/5 bg-base-100">
           <table className="table">
             {/* head */}
-            <thead>
+            <thead className="text-heading">
               <tr>
                 <th>Company/Employer</th>
                 <th>Job Title</th>
@@ -162,8 +163,8 @@ const Applications = () => {
                   <tr>
                     <td colSpan={8}>
                       <div className="flex flex-col justify-center items-center">
-                        <Mascot variant="sleeping" className="h-60"></Mascot>
-                        <p className="text-base pb-10">
+                        <Mascot variant="sleeping" className="h-40"></Mascot>
+                        <p className="text-base pb-5">
                           No applications yet. Add your first one!
                         </p>
                       </div>
@@ -173,8 +174,8 @@ const Applications = () => {
                   <tr>
                     <td colSpan={8}>
                       <div className="flex flex-col justify-center items-center">
-                        <Mascot variant="curious" className="h-60"></Mascot>
-                        <p className="text-base pb-10">
+                        <Mascot variant="curious" className="h-40"></Mascot>
+                        <p className="text-base pb-5">
                           No applications matched.
                         </p>
                       </div>
@@ -184,15 +185,23 @@ const Applications = () => {
                   visibleApplications.map((app) => {
                     return (
                       <tr key={app._id}>
-                        <td>{app.company}</td>
+                        <td>
+                          <CompanyAvatar name={app.company} />
+                        </td>
                         <td>{app.jobTitle}</td>
                         <td>{app.platform}</td>
-                        <td>{app.status}</td>
-                        <td>{app.dateApplied ?? app.createdAt}</td>
+                        <td>
+                          <StatusBadge status={app.status}></StatusBadge>
+                        </td>
+                        <td className="whitespace-nowrap">
+                          {formatDate(app.dateApplied ?? app.createdAt)}
+                        </td>
                         <td className="text-center">
                           {app.salaryRange ?? "-"}
                         </td>
-                        <td>{app.interviewDate}</td>
+                        <td className="text-center whitespace-nowrap">
+                          {formatDateTime(app.interviewDate)}
+                        </td>
                         <td></td>
                       </tr>
                     );
@@ -203,6 +212,11 @@ const Applications = () => {
           </table>
         </div>
       </section>
+      <ApplicationSheet
+        open={sheetOpen}
+        onOpenChange={setSheetOpen}
+        onSaved={handleSaved}
+      />
     </main>
   );
 };

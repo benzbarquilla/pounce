@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import Sidebar from "../components/Sidebar";
+import { Toaster } from "../components/ui/sonner";
 
 const pageTitles = {
   "/dashboard": "Dashboard",
@@ -24,6 +25,10 @@ const DashboardLayout = () => {
 
         {/* Page content: Dashboard, Applications, etc. render here */}
         <div className="flex-1 p-6">
+          <Toaster
+            position="bottom-right"
+            style={{ "--width": "200px" }}
+          ></Toaster>
           <Outlet />
         </div>
       </main>

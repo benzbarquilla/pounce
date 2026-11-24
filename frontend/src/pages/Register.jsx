@@ -6,6 +6,7 @@ import Button from "../components/Button";
 import Mascot from "../assets/mascot/celebrating.svg";
 import api from "../services/api";
 import Logo from "../components/Logo";
+import Alert from "#src/components/Alert.jsx";
 const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -14,7 +15,7 @@ const Register = () => {
     confirmPassword: "",
   });
 
-  const [serverError, setServerError] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [registered, setRegistered] = useState(false);
   const passwordsMatch = formData.password === formData.confirmPassword;
@@ -26,7 +27,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!passwordsMatch) return;
-    setServerError("");
+    setError("");
     setLoading(true);
 
     try {
@@ -37,7 +38,7 @@ const Register = () => {
       });
       setRegistered(true);
     } catch (err) {
-      setServerError(
+      setError(
         err.response?.data?.message ||
           (err.response
             ? "Registration failed. Try again."
@@ -147,16 +148,12 @@ const Register = () => {
                     className="input validator"
                   />
 
-                  {serverError && (
-                    <p role="alert" className="text-sm text-error">
-                      {serverError}
-                    </p>
-                  )}
+                  {error && <Alert error={error} className="rounded-sm" />}
 
                   <Button
                     type="submit"
                     loading={loading}
-                    className="mt-3 bg-purple hover:bg-button-hover"
+                    className="mt-3 bg-purple hover:bg-button-hover border-none"
                   >
                     {loading ? "Creating account..." : "Create account"}
                   </Button>

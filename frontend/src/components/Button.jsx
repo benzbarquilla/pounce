@@ -9,7 +9,7 @@ const Button = ({
   return (
     <button
       type={type}
-      className={`btn ${className} rounded-sm text-heading bg-button border-none shadow-none hover:text-white hover:bg-button-hover `}
+      className={`btn  ${className} rounded-sm text-heading shadow-none hover:text-white`}
       disabled={disabled || loading}
       {...props}
     >

@@ -16,7 +16,7 @@ const Banner = ({ title, children, mascotVariant, mascotPosition }) => {
   };
 
   return (
-    <section className="relative overflow-hidden flex justify-between p-5 rounded-sm md:min-h-55 bg-linear-to-r from-brand/15 to-[#7266d6]/15 ">
+    <section className="relative overflow-hidden flex justify-between p-5 rounded-sm md:min-h-55 bg-linear-to-b from-brand/15 to-[#7266d6]/15 ">
       <div className="max-w-xl md:pb-6">
         <p className="flex items-center gap-2">
           {isDaytime() ? (

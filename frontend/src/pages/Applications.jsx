@@ -11,6 +11,8 @@ import ApplicationSheet from "#src/components/ApplicationSheet.jsx";
 import { statuses } from "#src/lib/constants.js";
 import Alert from "#src/components/Alert.jsx";
 import { toast } from "sonner";
+import RowActions from "#src/components/RowActions.jsx";
+import DeleteDialog from "#src/components/DeleteDialog.jsx";
 
 const filterOptions = ["all", ...statuses];
 
@@ -21,7 +23,10 @@ const Applications = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [deleting, setDeleting] = useState(null);
+  const [deletingApp, setDeletingApp] = useState(null);
 
+  // Get all applications
   useEffect(() => {
     const getApplications = async () => {
       try {
@@ -43,7 +48,6 @@ const Applications = () => {
     selectedStatus === "all"
       ? applications
       : applications.filter((app) => app.status === selectedStatus);
-
   const query = search.trim().toLowerCase();
   const visibleApplications = filteredApplications.filter(
     (app) =>
@@ -52,18 +56,38 @@ const Applications = () => {
       app.platform?.toLowerCase().includes(query),
   );
 
+  // Status counter
   const appliedCount = applications.filter(
     (app) => app.status !== "wishlist",
   ).length;
 
+  // Validations
   const isEmpty = !loading && !error && applications.length === 0;
   const noMatches =
     !loading && applications.length > 0 && visibleApplications.length === 0;
 
+  // Saving new application
   const handleSaved = (newApp) => {
     setApplications((prev) => [newApp, ...prev]);
     setSheetOpen(false);
     toast.success("Application saved!");
+  };
+
+  // Deleting application
+  const handleDelete = async () => {
+    setDeleting(true);
+    try {
+      await api.delete(`/applications/${deletingApp._id}`);
+      setApplications((prev) => prev.filter((a) => a._id !== deletingApp._id));
+      setDeletingApp(null);
+      toast.success("Application deleted");
+    } catch (err) {
+      toast.error(
+        err.response?.data?.message || "Could not delete the application.",
+      );
+    } finally {
+      setDeleting(false);
+    }
   };
 
   return (
@@ -118,10 +142,7 @@ const Applications = () => {
                 aria-label="Search applications"
               />
             </label>
-            <Button
-              onClick={() => setSheetOpen(true)}
-              className="bg-purple hover:bg-button-hover border-none"
-            >
+            <Button onClick={() => setSheetOpen(true)}>
               <Plus strokeWidth={2} className="size-5" />
               <span className="hidden sm:inline">Add application</span>
             </Button>
@@ -140,7 +161,7 @@ const Applications = () => {
                 <th>Date Applied</th>
                 <th>Salary/Range</th>
                 <th>Interview</th>
-                <th>Actions</th>
+                <th></th>
               </tr>
             </thead>
 
@@ -201,7 +222,13 @@ const Applications = () => {
                         <td className="text-center whitespace-nowrap">
                           {formatDateTime(app.interviewDate)}
                         </td>
-                        <td></td>
+                        <td>
+                          <RowActions
+                            onView={() => console.log("view", app._id)}
+                            onEdit={() => console.log("edit", app._id)}
+                            onDelete={() => setDeletingApp(app)}
+                          />
+                        </td>
                       </tr>
                     );
                   })
@@ -212,9 +239,17 @@ const Applications = () => {
         </div>
       </section>
       <ApplicationSheet
+        title="Add application"
+        description="Track a job you applied for or want to apply to."
         open={sheetOpen}
         onOpenChange={setSheetOpen}
         onSaved={handleSaved}
+      />
+      <DeleteDialog
+        application={deletingApp}
+        loading={deleting}
+        onConfirm={handleDelete}
+        onCancel={() => setDeletingApp(null)}
       />
     </main>
   );

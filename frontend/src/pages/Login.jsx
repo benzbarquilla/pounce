@@ -98,11 +98,7 @@ const Login = () => {
 
               {error && <Alert error={error} className="rounded-sm" />}
 
-              <Button
-                type="submit"
-                loading={loading}
-                className="bg-purple hover:bg-button-hover border-none"
-              >
+              <Button type="submit" loading={loading}>
                 {loading ? "Signing in..." : "Sign in"}
               </Button>
             </form>

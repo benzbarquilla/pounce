@@ -26,7 +26,7 @@ const Banner = ({ title, children, mascotVariant, mascotPosition }) => {
           )}
           {getFormattedDate()}
         </p>
-        <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold mt-5">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold mt-5">
           {title}
         </h2>
         <p className="text-muted-foreground mt-6 ">{children}</p>

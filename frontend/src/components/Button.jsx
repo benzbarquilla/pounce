@@ -1,15 +1,23 @@
+const variants = {
+  primary: " bg-purple hover:bg-button-hover border-none",
+  outline: "border border-purple hover:bg-button-hover/20",
+  outline2: "border border-[#E4E4E7]",
+  danger: "border-none bg-[#EF4444]  hover:bg-[#DC2626] text-[#ffffff]",
+};
+
 const Button = ({
   children,
   loading = false,
   type = "button",
   className = "",
   disabled,
+  variant = "primary",
   ...props
 }) => {
   return (
     <button
       type={type}
-      className={`btn  ${className} rounded-sm text-heading shadow-none hover:text-white`}
+      className={`btn ${variants[variant]} ${className} rounded-sm shadow-none`}
       disabled={disabled || loading}
       {...props}
     >

@@ -150,11 +150,7 @@ const Register = () => {
 
                   {error && <Alert error={error} className="rounded-sm" />}
 
-                  <Button
-                    type="submit"
-                    loading={loading}
-                    className="mt-3 bg-purple hover:bg-button-hover border-none"
-                  >
+                  <Button type="submit" loading={loading} className="mt-3">
                     {loading ? "Creating account..." : "Create account"}
                   </Button>
                 </form>

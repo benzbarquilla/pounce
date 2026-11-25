@@ -7,14 +7,20 @@ import {
 } from "@/components/ui/sheet";
 import ApplicationForm from "./ApplicationForm";
 
-const ApplicationSheet = ({ open, onOpenChange, onSaved }) => {
+const ApplicationSheet = ({
+  open,
+  onOpenChange,
+  onSaved,
+  title,
+  description,
+}) => {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="w-full bg-sidebar">
         <SheetHeader className={"border-b"}>
-          <SheetTitle className={"text-lg"}>Add application</SheetTitle>
+          <SheetTitle className={"text-lg"}>{title}</SheetTitle>
           <SheetDescription className={"text-base"}>
-            Track a job you applied for or want to apply to.
+            {description}
           </SheetDescription>
         </SheetHeader>
 

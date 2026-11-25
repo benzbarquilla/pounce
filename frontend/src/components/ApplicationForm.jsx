@@ -192,6 +192,9 @@ const ApplicationForm = ({ onClose, onSaved }) => {
                 onChange={handleChange}
                 className="select w-full capitalize"
               >
+                <option value="" className="">
+                  Select work type
+                </option>
                 {workTypes.map((workType) => (
                   <option key={workType} value={workType}>
                     {workType}
@@ -227,6 +230,7 @@ const ApplicationForm = ({ onClose, onSaved }) => {
               id="joblink"
               type="url"
               label="Job Link"
+              placeholder="https://..."
               icon={Link}
               name="jobLink"
               value={formData.jobLink}
@@ -278,14 +282,11 @@ const ApplicationForm = ({ onClose, onSaved }) => {
         <Button
           type="submit"
           loading={loading}
-          className="inline-flex px-10 border-none bg-purple hover:bg-button-hover"
+          className="inline-flex px-10 border-none"
         >
           Save
         </Button>
-        <Button
-          onClick={onClose}
-          className="border border-purple hover:bg-button-hover/20 "
-        >
+        <Button onClick={onClose} variant="outline">
           Cancel
         </Button>
       </div>

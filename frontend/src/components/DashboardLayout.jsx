@@ -27,7 +27,7 @@ const DashboardLayout = () => {
         <div className="flex-1 p-6">
           <Toaster
             position="bottom-right"
-            style={{ "--width": "200px" }}
+            style={{ "--width": "230px" }}
           ></Toaster>
           <Outlet />
         </div>

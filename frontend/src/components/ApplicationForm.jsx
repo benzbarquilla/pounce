@@ -2,8 +2,6 @@ import {
   BuildingComplex,
   BriefcaseBusiness,
   Network,
-  Calendar,
-  CalendarDays,
   MapPinned,
   Wallet,
   Link,
@@ -15,24 +13,28 @@ import { useState } from "react";
 import { statuses, workTypes } from "#src/lib/constants.js";
 import api from "#src/services/api.js";
 import Alert from "./Alert";
+import { toDateInput, toDateTimeInput } from "#src/lib/date.js";
 
-const ApplicationForm = ({ onClose, onSaved }) => {
+const ApplicationForm = ({ onClose, onSaved, application }) => {
   const today = new Date().toLocaleDateString("en-CA"); // "2026-11-24", in LOCAL time
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    company: "",
-    jobTitle: "",
-    platform: "",
-    status: "applied",
-    dateApplied: today,
-    interviewDate: "",
-    workType: "",
-    location: "",
-    salaryRange: "",
-    jobLink: "",
-    contact: "",
-    notes: "",
+    //data it accepts also used for edit which takes the value is there is one "" is fallback for add
+    company: application?.company ?? "",
+    jobTitle: application?.jobTitle ?? "",
+    platform: application?.platform ?? "",
+    status: application?.status ?? "applied",
+    dateApplied: application
+      ? toDateInput(application?.dateApplied ?? application?.createdAt)
+      : today,
+    interviewDate: toDateTimeInput(application?.interviewDate),
+    workType: application?.workType ?? "",
+    location: application?.location ?? "",
+    salaryRange: application?.salaryRange ?? "",
+    jobLink: application?.jobLink ?? "",
+    contact: application?.contact ?? "",
+    notes: application?.notes ?? "",
   });
 
   const handleChange = (e) => {
@@ -51,13 +53,16 @@ const ApplicationForm = ({ onClose, onSaved }) => {
         dateApplied: formData.dateApplied
           ? new Date(`${formData.dateApplied}T12:00:00`).toISOString()
           : "",
-        interviewDate:
-          formData.status === "interview" && formData.interviewDate
-            ? new Date(formData.interviewDate).toISOString()
-            : "",
+        interviewDate: formData.interviewDate
+          ? new Date(formData.interviewDate).toISOString()
+          : "",
       };
 
-      const { data } = await api.post("/applications", payload);
+      // Edit and Add request
+      const request = application
+        ? api.patch(`/applications/${application._id}`, payload)
+        : api.post("/applications", payload);
+      const { data } = await request;
       onSaved(data);
     } catch (err) {
       setError(
@@ -150,7 +155,6 @@ const ApplicationForm = ({ onClose, onSaved }) => {
                 id="applieddate"
                 type="date"
                 label="Date Applied"
-                icon={Calendar}
                 name="dateApplied"
                 value={formData.dateApplied}
                 onChange={handleChange}
@@ -159,12 +163,11 @@ const ApplicationForm = ({ onClose, onSaved }) => {
             </div>
           </div>
           <div className="w-full md:w-57 mb-6">
-            {formData.status === "interview" && (
+            {(formData.status === "interview" || formData.interviewDate) && (
               <InputField
                 id="interviewdate"
                 type="datetime-local"
                 label="Interview Date"
-                icon={CalendarDays}
                 name="interviewDate"
                 value={formData.interviewDate}
                 onChange={handleChange}

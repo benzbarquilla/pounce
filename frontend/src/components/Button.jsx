@@ -1,5 +1,5 @@
 const variants = {
-  primary: " bg-purple hover:bg-button-hover border-none",
+  primary: " bg-purple hover:bg-button-hover border-none text-white",
   outline: "border border-purple hover:bg-button-hover/20",
   outline2: "border border-[#E4E4E7]",
   danger: "border-none bg-[#EF4444]  hover:bg-[#DC2626] text-[#ffffff]",

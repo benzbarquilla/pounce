@@ -25,6 +25,7 @@ const Applications = () => {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [deleting, setDeleting] = useState(null);
   const [deletingApp, setDeletingApp] = useState(null);
+  const [editingApp, setEditingApp] = useState(null);
 
   // Get all applications
   useEffect(() => {
@@ -67,10 +68,15 @@ const Applications = () => {
     !loading && applications.length > 0 && visibleApplications.length === 0;
 
   // Saving new application
-  const handleSaved = (newApp) => {
-    setApplications((prev) => [newApp, ...prev]);
+  const handleSaved = (saved) => {
+    const isEdit = Boolean(editingApp);
+    setApplications((prev) =>
+      isEdit
+        ? prev.map((a) => (a._id === saved._id ? saved : a))
+        : [saved, ...prev],
+    );
     setSheetOpen(false);
-    toast.success("Application saved!");
+    toast.success(isEdit ? "Application updated" : "Application saved");
   };
 
   // Deleting application
@@ -142,13 +148,18 @@ const Applications = () => {
                 aria-label="Search applications"
               />
             </label>
-            <Button onClick={() => setSheetOpen(true)}>
+            <Button
+              onClick={() => {
+                setEditingApp(null);
+                setSheetOpen(true);
+              }}
+            >
               <Plus strokeWidth={2} className="size-5" />
               <span className="hidden sm:inline">Add application</span>
             </Button>
           </div>
         </div>
-        {error && <Alert error={error} className="rounded-sm" />}
+        {error && <Alert error={error} className="rounded-sm mb-1" />}
         <div className="overflow-x-auto rounded-sm border border-base-content/5 bg-base-100">
           <table className="table">
             {/* head */}
@@ -225,7 +236,10 @@ const Applications = () => {
                         <td>
                           <RowActions
                             onView={() => console.log("view", app._id)}
-                            onEdit={() => console.log("edit", app._id)}
+                            onEdit={() => {
+                              setEditingApp(app);
+                              setSheetOpen(true);
+                            }}
                             onDelete={() => setDeletingApp(app)}
                           />
                         </td>
@@ -239,8 +253,7 @@ const Applications = () => {
         </div>
       </section>
       <ApplicationSheet
-        title="Add application"
-        description="Track a job you applied for or want to apply to."
+        application={editingApp}
         open={sheetOpen}
         onOpenChange={setSheetOpen}
         onSaved={handleSaved}
